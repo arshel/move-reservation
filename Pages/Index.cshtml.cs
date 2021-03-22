@@ -1,4 +1,5 @@
 ﻿using System;
+using LiteDB;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,8 +9,11 @@ using Microsoft.Extensions.Logging;
 
 namespace movie_reservation.Pages
 {
-    public class IndexModel : PageModel
-    {
+ public class IndexModel : PageModel
+{
+
+        public class IndexModel : PageModel
+        {
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -17,9 +21,10 @@ namespace movie_reservation.Pages
             _logger = logger;
         }
 
-        public void OnGet()
-        {
+  
+    
+        public void OnGet(){
+        }   
 
         }
-    }
-}
+  }

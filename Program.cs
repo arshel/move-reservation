@@ -1,11 +1,12 @@
 using System;
+using LiteDB;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging; 
 
 namespace movie_reservation
 {
@@ -13,7 +14,8 @@ namespace movie_reservation
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+        CreateHostBuilder(args).Build().Run();
+         
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -21,6 +23,6 @@ namespace movie_reservation
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                });    
     }
 }
