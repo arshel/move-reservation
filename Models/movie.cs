@@ -19,5 +19,5 @@ namespace movie_reservation
     public string Image { get; set; }
     public string Description { get; set; }
     public string Genre { get; set; }
-    public int Price { get; set; }
+    public float Price { get; set; }
 }
