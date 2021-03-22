@@ -3,41 +3,76 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - movie_reservation</title>
+    <title>@ViewData["Title"] - Movie Reservation</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">movie_reservation</a>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container-fluid row">
+                <a class="navbar-brand col-sm-4 text-left w-auto w-sm-100" asp-area="" asp-page="/Index">
+                    <img class="bg-white rounded-circle p-2" height="80" src="/images/logo.png" alt="Logo" />
+                    <span class="ml-2">
+                        Movie Reservation
+                    </span>
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse col-sm-4">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            @* TODO: Link *@
+                            <a class="nav-link" asp-area="">Catalogus</a>
+                        </li>
+                        <li class="nav-item d-sm-none">
+                            @* TODO: Link *@
+                            <a class="nav-link" asp-area="">Login</a>
+                        </li>
+                        <li class="nav-item d-sm-none">
+                            @* TODO: Link *@
+                            <a class="nav-link" asp-area="">Registreer</a>
+                        </li>
+                        <li class="nav-item d-sm-none">
+                            @* TODO: Link *@
+                            <a class="nav-link" asp-area="">Profiel</a>
                         </li>
                     </ul>
                 </div>
+                <ul class="navbar-nav col-sm-4 d-none d-sm-flex justify-content-end">
+                    <div class="ml-auto">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                Account
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                @* TODO: link and conditionally render *@
+                                <a class="dropdown-item">Login</a>
+                                <a class="dropdown-item">Registreer</a>
+                                <a class="dropdown-item">Profiel</a>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-light text-muted bg-dark">
         <div class="container">
-            &copy; 2021 - movie_reservation - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2021 - movie_reservation
         </div>
     </footer>
 

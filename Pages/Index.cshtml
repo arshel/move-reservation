@@ -4,7 +4,78 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome by movie reservation</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@* TODO: Use information from latest movie *@
+<div class="cover" style="background-image: linear-gradient(to bottom, #343a40, rgba(0,0,0,0), #fff), url('/images/the_martian.jpg');">
+    <div class="container pt-4">
+        <h2 class="cover__title text-white display-3 font-weight-bold">THE MARTIAN</h1>
+        <a class="btn btn-primary d-inline-flex align-items-center">
+            Reserveer nu
+            <span class="material-icons ml-2">label_important</span>
+        </a>
+    </div>
+</div>
+<div class="mt-4 container-fluid">
+    <div class="row px-4">
+        <div class="col-md-5">
+            <h1>Movie Reservation</h1>
+            <p class="lead">
+                @* TODO: replace with meaningfull text *@
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae magnam iusto similique quasi omnis. Sapiente id omnis corporis quae nisi dolores quidem odio accusantium nam.
+            </p>
+        </div>
+        <div class="col-md-7">
+            <img class="img-fluid rounded" src="/images/pathe.jpg" alt="Pathe">
+        </div>
+    </div>
+</div>
+@* TODO: Dynamically get latest movies *@
+<div class="mt-4">
+    <div class="container-fluid">
+        <h2 class="h1 px-sm-4">Laatste Films</h2>
+        <div class="row text-white px-4">
+            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                <div class="card bg-dark p-0">
+                    <img class="card-img-top" src="/images/the_martian.jpg" alt="The martian cover" class="img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">The Martian</h3>
+                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, asperiores.</p>
+                        <a href="#" class="btn btn-primary">Reserveer Film</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                <div class="card bg-dark p-0">
+                    <img class="card-img-top" src="/images/the_martian.jpg" alt="The martian cover" class="img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">The Martian</h3>
+                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, asperiores.</p>
+                        <a href="#" class="btn btn-primary">Reserveer Film</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                <div class="card bg-dark p-0">
+                    <img class="card-img-top" src="/images/the_martian.jpg" alt="The martian cover" class="img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">The Martian</h3>
+                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, asperiores.</p>
+                        <a href="#" class="btn btn-primary">Reserveer Film</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                <div class="card bg-dark p-0">
+                    <img class="card-img-top" src="/images/the_martian.jpg" alt="The martian cover" class="img-fluid">
+                    <div class="card-body">
+                        <h3 class="card-title">The Martian</h3>
+                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, asperiores.</p>
+                        <a href="#" class="btn btn-primary">Reserveer Film</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ml-auto px-4 text-right mt-2">
+            <a href="" class="btn btn-link">Zie alle films</a>
+        </div>
+    </div>
 </div>

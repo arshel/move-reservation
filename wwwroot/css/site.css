@@ -1,58 +1,23 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+:root {
+  /* Yellow */
+  --theme-primary: #f5c71a;
+  /* Darker yellow */
+  --theme-primary-dark: #efcc00;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
+html, body {
   font-size: 14px;
+  font-family: 'Lato', sans-serif;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
 html {
   position: relative;
   min-height: 100%;
@@ -62,10 +27,42 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+.btn-primary {
+  background-color: var(--theme-primary);
+  border-color: var(--theme-primary-dark);
+  border-radius: 1rem;
+  color: var(--dark);
+  padding: 0.3rem 1.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  color: var(--dark);
+  background-color: var(--theme-primary-dark);
+  border-color: var(--theme-primary);
+}
+
+.cover {
+  height: 60vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.cover__title {
+  text-shadow: black 0px 0px 5px;
+}
+
+.cover_cta {
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 }
