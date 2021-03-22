@@ -14,7 +14,6 @@ namespace movie_reservation
     {
         public static void Main(string[] args)
         {
-        Database.database();
         CreateHostBuilder(args).Build().Run();
          
         }
