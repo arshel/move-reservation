@@ -1,0 +1,43 @@
+@page
+@inject Auth.AuthChecker auth
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="mt-4 container">
+    <component render-mode="Static" type="typeof(Components.Message)" param-text="Model.Success" param-type='"success"' />
+    @if (Model.Success != null) {
+        <a href="/login">Log in</a>
+    }
+
+    @if (auth) {
+        <component render-mode="Static" type="typeof(Components.Message)" param-text='"Hallo " + auth.User.Email + ", Je bent al ingelogd."' param-type='"info"' />
+    }
+
+    @if (!auth && Model.Success == null) {
+        <form method="POST">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RegisterRequest.Email" class="control-label">Email</label>
+                <input asp-for="RegisterRequest.Email" class="form-control" placeholder="Voer Email in..." type="email">
+                <span asp-validation-for="RegisterRequest.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegisterRequest.Password" class="control-label">Wachtwoord</label>
+                <input asp-for="RegisterRequest.Password" class="form-control" placeholder="Voer wachtwoord in..." type="password">
+                <span asp-validation-for="RegisterRequest.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegisterRequest.PasswordCheck" class="control-label">Herhaal Wachtwoord</label>
+                <input asp-for="RegisterRequest.PasswordCheck" class="form-control" placeholder="Herhaal wachtwoord..." type="password">
+                <span asp-validation-for="RegisterRequest.PasswordCheck" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Registreer account</button>
+        </form>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
