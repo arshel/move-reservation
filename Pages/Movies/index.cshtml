@@ -1,0 +1,24 @@
+@page
+@model DisplayModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<div class="container">
+    <h1 class="text-center">Film Overzicht</h1>
+     
+    <div class="row">
+    @foreach (var movie in Model.Movie)
+    {
+           <div class="card col-3" style="width: 18rem;  margin-right:1rem;">
+            <img class="card-img-top" src="..." alt="@movie.Title">
+            <div class="card-body">
+                <h5 class="card-title">@movie.Title</h5>
+                 <p class="card-text">@movie.Genre</p>
+                @* <p class="card-text">@movie.Description.</p> *@
+                 <p class="card-text">@movie.Price</p>
+                <a asp-page="#" class="btn btn-primary">reserveer film</a>
+            </div>
+        </div>
+    }
+    </div>       
+</div>
