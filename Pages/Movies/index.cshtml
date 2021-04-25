@@ -3,22 +3,32 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
-<div class="container">
-    <h1 class="text-center">Film Overzicht</h1>
-     
-    <div class="row">
-    @foreach (var movie in Model.Movie)
-    {
-           <div class="card col-3" style="width: 18rem;  margin-right:1rem;">
-            <img class="card-img-top" src="..." alt="@movie.Title">
-            <div class="card-body">
-                <h5 class="card-title">@movie.Title</h5>
-                 <p class="card-text">@movie.Genre</p>
-                @* <p class="card-text">@movie.Description.</p> *@
-                 <p class="card-text">@movie.Price</p>
-                <a asp-page="#" class="btn btn-primary">reserveer film</a>
+<div class="container-fluid">
+<h1 class="text-center">Film Overzicht</h1>
+    <form method="post">
+        <div class="row text-white px-4">
+        @if (Model.Movie != null){
+            @foreach (var movie in Model.Movie)
+            {
+            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                <div class="card bg-dark p-0">
+                        <img class="card-img-top" src="wwwroot/images/movieimages/@movie.Image" alt="@movie.Image" class="img-fluid">
+                    <div class="card-body">
+                        <h5 class="card-title">@movie.Title</h5>
+                        <p class="card-text">@movie.Genre</p>
+                        <p class="card-text">@movie.Description</p>
+                        <p class="card-text">€ @movie.Price -,</p>
+                        <a asp-page="#" class="btn btn-primary col-12 mb-1">reserveer film</a>
+                        @* hier nog een uitzondering maken met auth zodat het niet altijd zichtbaar is voor iedereen *@
+                        <a class="btn btn-info col-12 mb-1" asp-page="./Edit" asp-route-id="@movie.Id">Edit film</a>
+                            <button class="btn btn-danger col-12" type="submit" asp-page-handler="delete" 
+                                        asp-route-id="@movie.Id">delete film 
+                            </button>
+                    </div>
+                </div>
             </div>
-        </div>
-    }
-    </div>       
+        }
+    }  
+        </div>   
+    </form>    
 </div>

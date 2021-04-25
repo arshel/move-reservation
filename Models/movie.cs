@@ -14,8 +14,7 @@ namespace movie_reservation.Models
         [Required]
         public string Genre { get; set; }
 
-        // [Required]
-        // public string Description { get; set; }
+        public string Description { get; set; }
 
         [Required]
         public string Image { get; set; }

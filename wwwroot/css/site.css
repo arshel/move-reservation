@@ -7,9 +7,10 @@ for details on configuring this project to bundle and minify static web assets. 
   --theme-primary-dark: #efcc00;
 }
 
-html, body {
+html,
+body {
   font-size: 14px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -39,14 +40,21 @@ body {
 .btn-primary {
   background-color: var(--theme-primary);
   border-color: var(--theme-primary-dark);
-  border-radius: 1rem;
   color: var(--dark);
   padding: 0.3rem 1.5rem;
   text-transform: uppercase;
   font-weight: bold;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+.btn {
+  padding: 0.3rem 1.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
   color: var(--dark);
   background-color: var(--theme-primary-dark);
   border-color: var(--theme-primary);
@@ -64,5 +72,5 @@ body {
 }
 
 .cover_cta {
-  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
 }
