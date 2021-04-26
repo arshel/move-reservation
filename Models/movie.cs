@@ -1,6 +1,6 @@
-using LiteDB;
+
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 namespace movie_reservation.Models
 {
 
@@ -18,7 +18,16 @@ namespace movie_reservation.Models
 
         [Required]
         public string Image { get; set; }
+
+        [Required]
+        public DateTime Time1 {get; set;}
         
+        [Required]
+        public DateTime Time2 {get; set;}
+
+        [Required]
+        public int Seats {get; set;}
+
         [Required]
         public decimal Price { get; set; }
     }

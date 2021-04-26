@@ -37,11 +37,23 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Movie.Image" class="control-label"> </label>
-                    <input  asp-for="Movie.Image" type="file" class="form-control-file">
-                    <span asp-validation-for="Movie.Image" class="text-danger"></span>
+                    <label asp-for="Movie.Seats" class="control-label"></label>
+                    <input asp-for="Movie.Seats" class="form-control"  placeholder="Voer het aantal stoelen in..."/>
+                    <span asp-validation-for="Movie.Seats" class="text-danger"></span>
                 </div>
 
+                <div class="form-group">
+                    <label asp-for="Movie.Time1" class="control-label"></label>
+                    <input asp-for="Movie.Time1" class="form-control" />
+                    <span asp-validation-for="Movie.Time1" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Movie.Time2" class="control-label"></label>
+                    <input asp-for="Movie.Time2" class="form-control"/>
+                    <span asp-validation-for="Movie.Time2" class="text-danger"></span>
+                </div>
+               
         <div class="form-group">
             <button  class="btn btn-primary"  type="submit">Save</button>
         </div>

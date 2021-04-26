@@ -38,21 +38,6 @@ namespace movie_reservation.Pages
             using(var db = new LiteDatabase(@"movieReservation.db")) {
 
               var movieCollection = db.GetCollection<Models.Movie>("Movies");
-              var image =  movieCollection.FindById(id);
-
-              // Delete the image
-              if(System.IO.File.Exists(@"wwwroot/images/movieimages/" + image.Image ))
-              {
-                  try
-                  {
-                      System.IO.File.Delete(@"wwwroot/images/movieimages/" + image.Image);
-                  }
-                  catch (System.IO.IOException e)
-                  {
-                    Error = e.Message;
-                  return RedirectToPage("/Movies/Index");
-                  }
-              }
               // then delete the movie 
                movieCollection.Delete(id);
       }
