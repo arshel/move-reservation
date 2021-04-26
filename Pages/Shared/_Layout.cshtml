@@ -35,19 +35,26 @@
                             @* TODO: Link *@
                             <a class="nav-link" asp-area="">Catalogus</a>
                         </li>
-                        <li class="nav-item d-sm-none">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
+                        @if (auth) {
+                            <li class="nav-item d-sm-none">
+                                @* TODO: Link *@
+                                <a class="nav-link" href="/users/">Profiel</a>
+                            </li>
+                            <li class="nav-item d-sm-none">
+                                <a class="nav-link" href="/logout">Log uit</a>
+                            </li>
+                        }
                         @if (!auth) {
                             <li class="nav-item d-sm-none">
                                 <a class="nav-link" href="/register">Registreer</a>
                             </li>
                             <li class="nav-item d-sm-none">
-                                @* TODO: Link *@
-                                <a class="nav-link">Profiel</a>
+                                <a class="nav-link" href="/login">Login</a>
                             </li>
-                            <li class="nav-item d-sm-none">
-                                <a class="nav-link" href="/logout">Log uit</a>
+                        }
+                        @if (auth && (auth.User.Role == Models.UserRole.Clerk || auth.User.Role == Models.UserRole.Owner)) {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/users">Gebruikers</a>
                             </li>
                         }
                     </ul>
@@ -65,7 +72,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 @if (auth) {
-                                    <a class="dropdown-item">Profiel</a>
+                                    <a class="dropdown-item" href="/users/edit?id=@auth.User.Id">Profiel</a>
                                     <a class="dropdown-item" href="/logout">Log uit</a>
                                 }
                                 @if (!auth) {
