@@ -32,9 +32,14 @@
                             <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            @* TODO: Link *@
-                            <a class="nav-link" asp-area="">Catalogus</a>
+                         
+                            <a class="nav-link" asp-page="/Movies/Index" asp-area="">Catalogus</a>
                         </li>
+                        @if (auth && (auth.User.Role == Models.UserRole.Clerk || auth.User.Role == Models.UserRole.Owner)) {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Movies/Create">Voeg film toe</a>
+                            </li>
+                        }
                         @if (auth) {
                             <li class="nav-item d-sm-none">
                                 @* TODO: Link *@
@@ -92,7 +97,7 @@
 
     <footer class="border-top footer text-light text-muted bg-dark">
         <div class="container">
-            &copy; 2021 - movie_reservation
+            &copy; 2021 - movie reservation
         </div>
     </footer>
 
