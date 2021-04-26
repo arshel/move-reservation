@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Auth.AuthChecker auth
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -34,31 +35,50 @@
                             @* TODO: Link *@
                             <a class="nav-link" asp-area="">Catalogus</a>
                         </li>
-                        <li class="nav-item d-sm-none">
-                            @* TODO: Link *@
-                            <a class="nav-link" asp-area="">Login</a>
-                        </li>
-                        <li class="nav-item d-sm-none">
-                            @* TODO: Link *@
-                            <a class="nav-link" asp-area="">Registreer</a>
-                        </li>
-                        <li class="nav-item d-sm-none">
-                            @* TODO: Link *@
-                            <a class="nav-link" asp-area="">Profiel</a>
-                        </li>
+                        @if (auth) {
+                            <li class="nav-item d-sm-none">
+                                @* TODO: Link *@
+                                <a class="nav-link" href="/users/">Profiel</a>
+                            </li>
+                            <li class="nav-item d-sm-none">
+                                <a class="nav-link" href="/logout">Log uit</a>
+                            </li>
+                        }
+                        @if (!auth) {
+                            <li class="nav-item d-sm-none">
+                                <a class="nav-link" href="/register">Registreer</a>
+                            </li>
+                            <li class="nav-item d-sm-none">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                        }
+                        @if (auth && (auth.User.Role == Models.UserRole.Clerk || auth.User.Role == Models.UserRole.Owner)) {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/users">Gebruikers</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <ul class="navbar-nav col-sm-4 d-none d-sm-flex justify-content-end">
                     <div class="ml-auto">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                Account
+                                @if (auth) {
+                                    <span>@auth.User.Email</span>
+                                }
+                                @if (!auth) {
+                                    <span>Account</span>
+                                }
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                @* TODO: link and conditionally render *@
-                                <a class="dropdown-item">Login</a>
-                                <a class="dropdown-item">Registreer</a>
-                                <a class="dropdown-item">Profiel</a>
+                                @if (auth) {
+                                    <a class="dropdown-item" href="/users/edit?id=@auth.User.Id">Profiel</a>
+                                    <a class="dropdown-item" href="/logout">Log uit</a>
+                                }
+                                @if (!auth) {
+                                    <a class="dropdown-item" href="/login">Login</a>
+                                    <a class="dropdown-item" href="/register">Registreer</a>
+                                }
                             </div>
                         </li>
                     </div>

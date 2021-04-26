@@ -19,11 +19,6 @@ namespace movie_reservation.Pages
             _logger = logger;
         }
 
-  
-    
-        public void OnGet(){
-        }   
-
-        
+        public void OnGet() {}
   }
 }
