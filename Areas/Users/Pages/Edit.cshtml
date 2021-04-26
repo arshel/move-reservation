@@ -1,0 +1,68 @@
+@page
+@inject Auth.AuthChecker auth
+@model EditModel
+
+<div class="container mt-4">
+    <component type="typeof(Components.Message)" render-mode="Static" param-type='"error"' param-text="Model.Error"></component>
+    <component type="typeof(Components.Message)" render-mode="Static" param-type='"success"' param-text="Model.Success"></component>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @if (Model.UserToEdit != null && Model.Success == null && Model.Error == null) {
+        @if (!auth.CanEdit(Model.UserToEdit)) {
+            <component type="typeof(Components.Message)" render-mode="Static" param-type='"error"' param-text='"U bent niet bevoegd om deze gebruiker te bewerken."'></component>
+        }
+
+        @if (auth.CanEdit(Model.UserToEdit)) {
+            <section>
+                <h2>Informatie veranderen</h2>
+                <form method="POST" asp-page="./Edit" asp-page-handler="Edit">
+                    <input type="hidden" asp-for="EditRequest.Id" value="@Model.UserToEdit.Id">
+                    <div class="form-group">
+                        <label asp-for="EditRequest.Email" class="control-label">Email</label>
+                        <input asp-for="EditRequest.Email" value="@Model.UserToEdit.Email" class="form-control" placeholder="Voer Email in..." type="email">
+                        <span asp-validation-for="EditRequest.Email" class="text-danger"></span>
+                    </div>
+                    @if (auth.User.Role == Models.UserRole.Owner && Model.UserToEdit.Role != Models.UserRole.Owner) {
+                        <div class="form-group">
+                            <label asp-for="EditRequest.Role" class="control-label">Rol</label>
+                            <select asp-for="EditRequest.Role" class="form-control">
+                                @foreach (var item in (Models.UserRole[]) Enum.GetValues(typeof(Models.UserRole))) {
+                                    @if (Model.UserToEdit.Role == item) {
+                                        <option selected="selected" value="@item">@item</option>
+                                    }
+                                    @if (Model.UserToEdit.Role != item) {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="EditRequest.Role" class="text-danger"></span>
+                        </div>
+                    }
+                    <button type="submit" class="btn btn-primary">Bijwerken</button>
+                </form>
+            </section>
+            <section class="mt-4">
+                <h2>Wachtwoord veranderen</h2>
+                <form method="post" autocomplete="off" asp-page-handler="ChangePassword">
+                    <input type="hidden" asp-for="ChangePasswordRequest.Id" value="@Model.UserToEdit.Id">
+                    <div class="form-group">
+                        <label asp-for="ChangePasswordRequest.Password" class="control-label">Wachtwoord</label>
+                        <input asp-for="ChangePasswordRequest.Password" class="form-control" placeholder="Wachtwoord..." type="password">
+                        <span asp-validation-for="ChangePasswordRequest.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ChangePasswordRequest.PasswordCheck" class="control-label">Herhaal Wachtwoord</label>
+                        <input asp-for="ChangePasswordRequest.PasswordCheck" class="form-control" placeholder="Herhaal wachtwoord..." type="password">
+                        <span asp-validation-for="ChangePasswordRequest.PasswordCheck" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Veranderen</button>
+                </form>
+            </section>
+        }
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
