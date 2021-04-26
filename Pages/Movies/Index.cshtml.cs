@@ -3,6 +3,7 @@ using LiteDB;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using movie_reservation.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -15,13 +16,17 @@ namespace movie_reservation.Pages
 
         private readonly ILogger<DisplayModel> _logger;
 
-        public DisplayModel(ILogger<DisplayModel> logger)
+        public DisplayModel(ILogger<DisplayModel> logger, AuthChecker auth)
         {
             _logger = logger;
+              _auth = auth;
         }
 
           public IList<Movie> Movie { get; set; }
+          private readonly AuthChecker _auth;
           public string Success;
+
+
           public string Error;
 
         public void OnGet(){ 

@@ -1,5 +1,6 @@
 @page
 @model DisplayModel
+@inject Auth.AuthChecker auth
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
@@ -22,11 +23,14 @@
                         <p class="card-text"> tweede film is om @movie.Time2 </p>
                         
                         <a asp-page="#" class="btn btn-primary col-12 mb-1">reserveer film</a>
-                        @* hier nog een uitzondering maken met auth zodat het niet altijd zichtbaar is voor iedereen *@
-                        <a class="btn btn-info col-12 mb-1" asp-page="./Edit" asp-route-id="@movie.Id">Edit film</a>
-                            <button class="btn btn-danger col-12" type="submit" asp-page-handler="delete" 
-                                        asp-route-id="@movie.Id">delete film 
-                            </button>
+                       @if (auth.User != null) {
+                            @if (auth.User.Role != Models.UserRole.Customer) {
+                                <a class="btn btn-info col-12 mb-1" asp-page="./Edit" asp-route-id="@movie.Id">Edit film</a>
+                                    <button class="btn btn-danger col-12" type="submit" asp-page-handler="delete" 
+                                                asp-route-id="@movie.Id">delete film 
+                                    </button>
+                            }
+                    }
                     </div>
                 </div>
             </div>
