@@ -1,19 +1,19 @@
-<p class="control-label">Seats</p>
-@if (Type == "small") {
+<p class="control-label">Choose Seats for @Type venue</p>
+@if (Type == "Small") {
     <div class="venue">
         @for(var i = 1; i <= 19; i++) {
             @for(var j = 1; j <= 18; j++) {
-                <input class="d-none" type="checkbox" id=@CreateName(i, j) name=@CreateName(i, j) disabled=@ShouldBeDisabled(i, j) />
+                <input name="seats" class="d-none" type="checkbox" id=@CreateName(i, j) value=@CreateName(i, j) disabled=@ShouldBeDisabled(i, j) />
                 <label class=@CreateSeatClasses(i, j) for=@CreateName(i, j) >
                 </label>
             }
         }
     </div>
-} else if(Type == "large") {
+} else if(Type == "Large") {
    <div class="venue venue--large">
         @for(var i = 1; i <= 20; i++) {
             @for(var j = 1; j <= 30; j++) {
-                <input class="d-none" type="checkbox" id=@CreateName(i, j) name=@CreateName(i, j) disabled=@ShouldBeDisabled(i, j) />
+                <input name="seats" class="d-none" type="checkbox" id=@CreateName(i, j) value=@CreateName(i, j) disabled=@ShouldBeDisabled(i, j) />
                 <label class=@CreateSeatClasses(i, j) for=@CreateName(i, j) >
                 </label>
             }
@@ -29,24 +29,40 @@
     public string CreateSeatClasses(int r, int s) {
         string classes = "venue-seat";
 
-        if(ShouldBeDisabled(r, s)) {
-            classes += " venue-seat--disabled";
+        if(Type == "Large") {
+            if(LargeDisabledSeats.Contains("R" + r + "S" + s)) {
+                classes += " venue-seat--disabled";
+            }
+        }
+
+        if(Type == "Small") {
+            if(SmallDisabledSeats.Contains("R" + r + "S" + s)) {
+                classes += " venue-seat--disabled";
+            }
+        }
+
+        if(Taken.Contains("seat_R" + r + "S" + s)) {
+            classes += " venue-seat--taken";
         }
 
         return classes;
     }
 
     public bool ShouldBeDisabled(int r, int s) {
-        if(Type == "large") {
+        if(Type == "Large") {
             if(LargeDisabledSeats.Contains("R" + r + "S" + s)) {
                 return true;
             }
         }
 
-        if(Type == "small") {
+        if(Type == "Small") {
             if(SmallDisabledSeats.Contains("R" + r + "S" + s)) {
                 return true;
             }
+        }
+
+        if(Taken.Contains("seat_R" + r + "S" + s)) {
+            return true;
         }
 
         return false;
@@ -58,7 +74,7 @@
     public string Type { get; set; }
 
     [Parameter]
-    public string[] Taken { get; set; }
+    public List<string> Taken { get; set; }
 
     public string[] SmallDisabledSeats = new string[] {
         "R1S1", "R1S18",

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using LiteDB;
 
 namespace movie_reservation.Models
 {
@@ -19,5 +21,24 @@ namespace movie_reservation.Models
         public List<string> SeatsTaken { get; set; }
 
         public DateTime Time { get; set; }
+
+        private Movie cachedMovie { get; set; }
+
+        public Movie Movie
+        {
+            get {
+                if(this.cachedMovie == null) {
+                    try {
+                        using(var db = new LiteDatabase(@"movieReservation.db")) {
+                            var col = db.GetCollection<Movie>("movies");
+                            this.cachedMovie = col.FindOne(x => x.Id == this.Id);
+                        }
+                    } catch(IOException) {
+                        Console.WriteLine("cant get movie");
+                    }
+                }
+                return this.cachedMovie;
+            }
+        }
     }
 }

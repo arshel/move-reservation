@@ -32,12 +32,17 @@
                             <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                         
                             <a class="nav-link" asp-page="/Movies/Index" asp-area="">Catalogus</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Viewings">Viewings</a>
                         </li>
                         @if (auth && (auth.User.Role == Models.UserRole.Clerk || auth.User.Role == Models.UserRole.Owner)) {
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-page="/Movies/Create">Voeg film toe</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Viewings/Create">Voeg viewing toe</a>
                             </li>
                         }
                         @if (auth) {
