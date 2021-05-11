@@ -1,0 +1,97 @@
+<p class="control-label">Seats</p>
+@if (Type == "small") {
+    <div class="venue">
+        @for(var i = 1; i <= 19; i++) {
+            @for(var j = 1; j <= 18; j++) {
+                <input class="d-none" type="checkbox" id=@CreateName(i, j) name=@CreateName(i, j) disabled=@ShouldBeDisabled(i, j) />
+                <label class=@CreateSeatClasses(i, j) for=@CreateName(i, j) >
+                </label>
+            }
+        }
+    </div>
+} else if(Type == "large") {
+   <div class="venue venue--large">
+        @for(var i = 1; i <= 20; i++) {
+            @for(var j = 1; j <= 30; j++) {
+                <input class="d-none" type="checkbox" id=@CreateName(i, j) name=@CreateName(i, j) disabled=@ShouldBeDisabled(i, j) />
+                <label class=@CreateSeatClasses(i, j) for=@CreateName(i, j) >
+                </label>
+            }
+        }
+    </div>
+}
+
+@functions {
+    public string CreateName(int r, int s) {
+        return "seat_R" + r + "S" + s;
+    }
+
+    public string CreateSeatClasses(int r, int s) {
+        string classes = "venue-seat";
+
+        if(ShouldBeDisabled(r, s)) {
+            classes += " venue-seat--disabled";
+        }
+
+        return classes;
+    }
+
+    public bool ShouldBeDisabled(int r, int s) {
+        if(Type == "large") {
+            if(LargeDisabledSeats.Contains("R" + r + "S" + s)) {
+                return true;
+            }
+        }
+
+        if(Type == "small") {
+            if(SmallDisabledSeats.Contains("R" + r + "S" + s)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+@code {
+    [Parameter]
+    public string Type { get; set; }
+
+    [Parameter]
+    public string[] Taken { get; set; }
+
+    public string[] SmallDisabledSeats = new string[] {
+        "R1S1", "R1S18",
+        "R2S1", "R2S18",
+        "R3S1", "R3S18",
+        "R4S1", "R4S18",
+        "R5S1", "R5S18",
+        "R6S1", "R6S18",
+        "R12S1", "R12S18",
+        "R13S1", "R13S18",
+        "R14S1", "R14S18",
+        "R15S1", "R15S2", "R15S17", "R15S18",
+        "R16S1", "R16S2", "R16S17", "R16S18",
+        "R17S1", "R17S2", "R17S17", "R17S18",
+        "R18S1", "R18S2", "R18S3", "R18S16", "R18S17", "R18S18",
+        "R19S1", "R19S2", "R19S3", "R19S16", "R19S17", "R19S18",
+    };
+
+    public string[] LargeDisabledSeats = new string[] {
+        "R1S1", "R1S2", "R1S3", "R1S4", "R1S27", "R1S28", "R1S29", "R1S30",
+        "R2S1", "R2S2", "R2S3", "R2S28", "R2S29", "R2S30",
+        "R3S1", "R3S2", "R3S3", "R3S28", "R3S29", "R3S30",
+        "R4S1", "R4S2", "R4S3", "R4S28", "R4S29", "R4S30",
+        "R5S1", "R5S2", "R5S3", "R5S28", "R5S29", "R5S30",
+        "R6S1", "R6S2", "R6S29", "R6S30",
+        "R7S1", "R7S30",
+        "R13S1", "R13S30",
+        "R14S1", "R14S2", "R14S29", "R14S30",
+        "R15S1", "R15S2", "R15S29", "R15S30",
+        "R16S1", "R16S2", "R16S3", "R16S28", "R16S29", "R16S30",
+        "R17S1", "R17S2", "R17S3", "R17S28", "R17S29", "R17S30",
+        "R18S1", "R18S2", "R18S3", "R18S4", "R18S5", "R18S26", "R18S27", "R18S28", "R18S29", "R18S30",
+        "R19S1", "R19S2", "R19S3", "R19S4", "R19S5", "R19S6", "R19S7", "R19S24", "R19S25", "R19S26", "R19S27", "R19S28", "R19S29", "R19S30",
+        "R20S1", "R20S2", "R20S3", "R20S4", "R20S5", "R20S6", "R20S7", "R20S8", "R20S23", "R20S24", "R20S25", "R20S26", "R20S27", "R20S28", "R20S29", "R20S30",
+    };
+}
