@@ -1,0 +1,12 @@
+@page
+@model ReserveModel
+
+<div class="container mt-4">
+    <h2>Reserve Viewing for @Model.Viewing.Movie.Title</h2>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" class="d-none" name="viewingId" value=@Model.Viewing.Id>
+        <component type="typeof(Components.Venue)" render-mode="Static" param-type=@Model.Viewing.Venue.ToString() param-taken=@Model.Viewing.SeatsTaken></component>
+        <button class="btn btn-primary" type="submit">Reserve</button>
+    </form>
+</div>

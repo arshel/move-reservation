@@ -1,0 +1,51 @@
+@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Create Viewing";
+}
+
+<div class="mt-4 container">
+    <h1>Create Viewing</h1>
+
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="CreateRequest.MovieId" class="control-label">
+                Movie ID
+            </label>
+            <input asp-for="CreateRequest.MovieId" class="form-control" placeholder="Voer een film id in..." />
+            <span asp-validation-for="CreateRequest.MovieId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreateRequest.Venue" class="control-label">
+                Venue
+            </label>
+            <select class="form-control" asp-for="CreateRequest.Venue">
+                <option value="small">Small</option>
+                <option value="large">Large</option>
+            </select>
+            <span asp-validation-for="CreateRequest.Venue" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreateRequest.Date" class="control-label">
+                Datum
+            </label>
+            <input type="date" asp-for="CreateRequest.Date" class="form-control" placeholder="Voer een film datum in dd/mm/yyyy in..." />
+            <span asp-validation-for="CreateRequest.Date" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreateRequest.Time" class="control-label">
+                Tijd
+            </label>
+            <input type="time" asp-for="CreateRequest.Time" class="form-control" placeholder="Voer een film tijd in hh:mm in..." />
+            <span asp-validation-for="CreateRequest.Time" class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Opslaan</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

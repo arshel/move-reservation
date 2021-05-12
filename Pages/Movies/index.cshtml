@@ -14,20 +14,15 @@
             <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
                 <div class="card bg-dark p-0">
                     <div class="card-body">
-                        <h5 class="card-title">@movie.Title</h5>
+                        <h5 class="card-title">#@movie.Id @movie.Title</h5>
                         <p class="card-text">@movie.Genre</p>
                         <p class="card-text">@movie.Description</p>
                         <p class="card-text">€ @movie.Price -,</p>
-                        <p class="card-text"> er zijn nog @movie.Seats stoelen beschikbaar</p>
-                        <p class="card-text"> eerste film is om @movie.Time1 </p>
-                        <p class="card-text"> tweede film is om @movie.Time2 </p>
-                        
-                        <a asp-page="#" class="btn btn-primary col-12 mb-1">reserveer film</a>
                        @if (auth.User != null) {
                             @if (auth.User.Role != Models.UserRole.Customer) {
                                 <a class="btn btn-info col-12 mb-1" asp-page="./Edit" asp-route-id="@movie.Id">Edit film</a>
-                                    <button class="btn btn-danger col-12" type="submit" asp-page-handler="delete" 
-                                                asp-route-id="@movie.Id">delete film 
+                                    <button class="btn btn-danger col-12" type="submit" asp-page-handler="delete"
+                                                asp-route-id="@movie.Id">delete film
                                     </button>
                             }
                     }
@@ -35,7 +30,7 @@
                 </div>
             </div>
         }
-    }  
-        </div>   
-    </form>    
+    }
+        </div>
+    </form>
 </div>
