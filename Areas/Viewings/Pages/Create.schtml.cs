@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using movie_reservation.Auth;
 using movie_reservation.Validation;
-
+using movie_reservation.Models
+;
 namespace movie_reservation.Areas.Viewings.Pages {
+
     public class CreateModel : PageModel {
+
         private readonly ILogger<CreateModel> _logger;
 
         private readonly AuthChecker _auth;
@@ -25,6 +28,8 @@ namespace movie_reservation.Areas.Viewings.Pages {
 
         [BindProperty]
         public Request CreateRequest { get; set; }
+
+        public Movie Movie { get; set; }
 
         public IActionResult OnPost() {
              if (!ModelState.IsValid) {
@@ -42,21 +47,21 @@ namespace movie_reservation.Areas.Viewings.Pages {
                 var viewingCol = db.GetCollection<Models.Viewing>("viewings");
 
                 // check movie exists with given id
-                var movie = movieCol.FindOne(x => x.Id == CreateRequest.MovieId);
-                if (movie == null) {
+                Movie  = movieCol.FindById(CreateRequest.MovieId);
+                if (Movie == null) {
                     return NotFound();
                 }
 
                 // insert viewing
                 viewingCol.Insert(new Models.Viewing{
-                    MovieId = movie.Id,
+                    MovieId = Movie.Id,
                     Venue = CreateRequest.Venue == "small" ? Models.Venue.Small : Models.Venue.Large,
                     SeatsTaken = new List<string>(),
                     Time = date,
                 });
             }
 
-            return RedirectToPage("/Viewings/Index");
+            return RedirectToPage("/Index");
         }
     }
 

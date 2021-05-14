@@ -4,26 +4,32 @@
 
 <div class="container mt-4">
     <h2>Viewings</h2>
-    <div class="row">
-        @foreach(var viewing in Model.Viewings) {
-            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
-                <div class="card bg-dark p-0">
-                    <div class="card-body text-white">
-                        <h5 class="card-title">@viewing.Movie.Title</h5>
-                        <p class="card-text">@viewing.Movie.Genre</p>
-                        <p class="card-text">@viewing.Movie.Description</p>
-                        <p class="card-text">€ @viewing.Movie.Price -,</p>
-                        <p class="card-text">@viewing.Time</p>
-                        <p class="card-text">Venue: @viewing.Venue</p>
-                        <hr>
-                        <a asp-page="./Reserve" asp-route-id="@viewing.Id" class="btn btn-primary col-12 mb-1">Reserveer</a>
-                        @if(auth.User.Role == Models.UserRole.Owner || auth.User.Role == Models.UserRole.Clerk) {
-                            <a asp-page="#" class="btn btn-info col-12 mb-1">Edit</a>
-                            <a asp-page="#" class="btn btn-danger col-12 mb-1">Remove</a>
-                        }
+
+      <form method="post">
+        <div class="row">
+            @foreach(var viewing in Model.Viewings) {
+                <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                    <div class="card bg-dark p-0">
+                        <div class="card-body text-white">
+                            <h5 class="card-title">@viewing.Movie.Title</h5>
+                            <p class="card-text">@viewing.Movie.Genre</p>
+                            <p class="card-text">@viewing.Movie.Description</p>
+                            <p class="card-text">€ @viewing.Movie.Price -,</p>
+                            <p class="card-text">@viewing.Time</p>
+                            <p class="card-text">Venue: @viewing.Venue</p>
+                            <hr>
+                            <a asp-page="./Reserve" asp-route-id="@viewing.Id" class="btn btn-primary col-12 mb-1">Reserveer</a>
+                            @if(auth.User.Role == Models.UserRole.Owner || auth.User.Role == Models.UserRole.Clerk) {
+                                <a asp-page="./Edit" asp-route-id="@viewing.Id"class="btn btn-info col-12 mb-1">Edit</a>
+                             
+                                <button class="btn btn-danger col-12 mb-1" type="submit" asp-page-handler="delete"
+                                        asp-route-id="@viewing.Id">remove
+                                </button>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    </form>
 </div>
