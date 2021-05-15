@@ -67,6 +67,12 @@
                                 <a class="nav-link" href="/users">Gebruikers</a>
                             </li>
                         }
+
+                        @if (auth && (auth.User.Role == Models.UserRole.Clerk || auth.User.Role == Models.UserRole.Owner)) {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Reservations">reservatie's</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <ul class="navbar-nav col-sm-4 d-none d-sm-flex justify-content-end">

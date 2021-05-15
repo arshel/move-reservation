@@ -22,6 +22,7 @@ namespace movie_reservation.Areas.Viewings.Pages {
         }
 
         public Viewing Viewing { get; set; }
+        public Reservation Reservation {get; set;}
 
         public void OnGet(int? id) {
             using(var db = new LiteDatabase(@"movieReservation.db")) {
@@ -44,10 +45,12 @@ namespace movie_reservation.Areas.Viewings.Pages {
 
             using(var db = new LiteDatabase(@"movieReservation.db")) {
                 var col = db.GetCollection<Models.Viewing>("viewings");
+                var Reservcol = db.GetCollection<Models.Reservation>("Reservations");
                 var viewing = col.FindOne(x => x.Id == viewingId);
                 var takenSeats = seats.Concat(viewing.SeatsTaken).ToList();
                 viewing.SeatsTaken = takenSeats;
                 col.Update(viewing);
+                
             }
 
             return RedirectToPage("Index");

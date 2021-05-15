@@ -25,14 +25,17 @@ using movie_reservation.Models;
                 _auth = auth;
                 _logger = logger;
             }
-
-            public Viewing Viewing;
-
-            public Movie Movie;
             
-            public Request CreateRequest { get; set; }
+            [BindProperty]
+            public Viewing Viewing  { get; set; }
+            
+            [BindProperty]
+            public Movie Movie  { get; set; }
+            
+            [BindProperty]
+            public testRequest testingRequest { get; set; }
 
-            public IActionResult OnGet(int? id) {
+            public IActionResult OnGet(int id) {
 
                 using(var db = new LiteDatabase(@"movieReservation.db")) {
 
@@ -44,10 +47,7 @@ using movie_reservation.Models;
 
             public IActionResult OnPost(int? id) {
             
-                    if (!ModelState.IsValid) {
-                    return Page();
-                }
-
+        
                 if (!_auth) {
                     return Unauthorized();
                 }
@@ -60,18 +60,16 @@ using movie_reservation.Models;
                    
                     var viewing = viewingCol.FindById(id);
 
-                    Movie = movieCol.FindById(viewing.MovieId);
+                    Movie = movieCol.FindById(testingRequest.MovieId);
                    
-                    //var date = DateTime.ParseExact(CreateRequest.Date + " " + CreateRequest.Time, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-
                     if (Movie == null) {
                         return NotFound();
                     }
 
                     viewing.MovieId = Movie.Id;
-                    //viewing.Venue = CreateRequest.Venue  == "small" ? Models.Venue.Small : Models.Venue.Large;
+                    viewing.Venue = testingRequest.Venue  == "small" ? Models.Venue.Small : Models.Venue.Large;
                     viewing.SeatsTaken = new List<string>();
-                    //viewing.Time = date;
+                    viewing.Time = Viewing.Time;
                     
                     viewingCol.Update(viewing);
 
@@ -81,19 +79,21 @@ using movie_reservation.Models;
 
             }
 
-        public class Request {
+        public class testRequest {
+            [Required]
+            public int Id { get; set; }
 
             [Required]
             public int MovieId { get; set; }
 
-            [Required]
+          //  [Required]
             [VenueValid]
             public string Venue { get; set; }
 
-            [Required]
+           // [Required]
             public string Date { get; set; }
 
-            [Required]
+           // [Required]
             public string Time { get; set; }
         }
     }

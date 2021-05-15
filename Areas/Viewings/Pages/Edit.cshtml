@@ -10,38 +10,39 @@
 
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-         <input type="hidden" asp-for="Viewing.Id" />    
+
+        <input type="hidden" asp-for="testingRequest.Id" value="@Model.Viewing.Id" />   
+
         <div class="form-group">
-            <label asp-for="Viewing.MovieId" class="control-label">
+            <label asp-for="testingRequest.MovieId" class="control-label">
                 Movie ID
             </label>
-            <input asp-for="Viewing.MovieId" class="form-control" placeholder="Voer een film id in..." />
-            <span asp-validation-for="Viewing.MovieId" class="text-danger"></span>
+            <input asp-for="testingRequest.MovieId" value="@Model.Viewing.MovieId" class="form-control" placeholder="Voer een film id in..." />
+            <span asp-validation-for="testingRequest.MovieId" class="text-danger"></span>
         </div>
+
         <div class="form-group">
-            <label asp-for="CreateRequest.Venue" class="control-label">
+            <label asp-for="testingRequest.Venue" class="control-label">
                 Venue
             </label>
-            <select class="form-control" asp-for="CreateRequest.Venue">
-                <option value="small">Small</option>
-                <option value="large">Large</option>
-            </select>
-            <span asp-validation-for="CreateRequest.Venue" class="text-danger"></span>
+            @if(@Model.Viewing.Venue == Models.Venue.Small){
+                <select class="form-control" asp-for="testingRequest.Venue">
+                    <option selected value="small">Small</option>
+                    <option value="large">Large</option>
+                </select>
+            } else {
+                <select class="form-control" asp-for="testingRequest.Venue">
+                    <option value="small">Small</option>
+                    <option selected value="large">Large</option>
+                </select>
+            }
+            <span asp-validation-for="testingRequest.Venue" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label asp-for="Viewing.Time" class="control-label">
-                Datum
-            </label>
-            <input type="date" asp-for="Viewing.Time" class="form-control" placeholder="Voer een film datum in dd/mm/yyyy in..." />
-            <span asp-validation-for="Viewing.Time" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Viewing.Time" class="control-label">
-                Tijd
-            </label>
-            <input type="time" asp-for="Viewing.Time" class="form-control" placeholder="Voer een film tijd in hh:mm in..." />
-            <span asp-validation-for="Viewing.Time" class="text-danger"></span>
-        </div>
+            <div class="form-group">
+                <label asp-for="Viewing.Time" class="control-label"></label>
+                <input asp-for="Viewing.Time" class="form-control"/>
+                <span asp-validation-for="Viewing.Time" class="text-danger"></span>
+            </div>
 
         <button class="btn btn-primary" type="submit">Opslaan</button>
     </form>
