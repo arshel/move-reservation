@@ -1,5 +1,34 @@
 @page
-
+@inject Auth.AuthChecker auth
 @model ReservationIndexModel
 
-<h1>hey hallo </h1> 
+
+<div class="container-fluid">
+<h1 class="text-center">Reservaties</h1>
+    <form method="post">
+        <div class="row text-white px-4">
+        @foreach(var viewing in Model.Reservation) {
+            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                <div class="card bg-dark p-0">
+                    <div class="card-body">
+                        <h4>name: @viewing.Name </h4> 
+                        <p> Movie time: @viewing.Time </p> 
+                        <p>price:  @viewing.Price </p> 
+                        
+                        @foreach(var seat in viewing.Seats){
+                            <h1> @seat </h1> 
+                        }
+                       @if (auth.User != null) {
+                            @if (auth.User.Role != Models.UserRole.Customer) {
+                                <button class="btn btn-danger col-12" type="submit" asp-page-handler="delete"
+                                    asp-route-id="@viewing.Id">delete reservation
+                                </button>
+                            }
+                    }
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </form>
+</div>

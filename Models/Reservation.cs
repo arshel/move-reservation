@@ -13,8 +13,16 @@ namespace movie_reservation.Models
         [Required]
         public List<string> Seats { get; set; }
 
+        public int UserId {get; set; }
+
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public DateTime Time { get; set; }
+
+        [Required]
+        public decimal Price { get; set; }
 
     }
 }

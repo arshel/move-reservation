@@ -11,32 +11,32 @@
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <input type="hidden" asp-for="testingRequest.Id" value="@Model.Viewing.Id" />   
+        <input type="hidden" asp-for="ViewsEditRequest.Id" value="@Model.Viewing.Id" />   
 
         <div class="form-group">
-            <label asp-for="testingRequest.MovieId" class="control-label">
+            <label asp-for="ViewsEditRequest.MovieId" class="control-label">
                 Movie ID
             </label>
-            <input asp-for="testingRequest.MovieId" value="@Model.Viewing.MovieId" class="form-control" placeholder="Voer een film id in..." />
-            <span asp-validation-for="testingRequest.MovieId" class="text-danger"></span>
+            <input asp-for="ViewsEditRequest.MovieId" value="@Model.Viewing.MovieId" class="form-control" placeholder="Voer een film id in..." />
+            <span asp-validation-for="ViewsEditRequest.MovieId" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="testingRequest.Venue" class="control-label">
+            <label asp-for="ViewsEditRequest.Venue" class="control-label">
                 Venue
             </label>
             @if(@Model.Viewing.Venue == Models.Venue.Small){
-                <select class="form-control" asp-for="testingRequest.Venue">
+                <select class="form-control" asp-for="ViewsEditRequest.Venue">
                     <option selected value="small">Small</option>
                     <option value="large">Large</option>
                 </select>
             } else {
-                <select class="form-control" asp-for="testingRequest.Venue">
+                <select class="form-control" asp-for="ViewsEditRequest.Venue">
                     <option value="small">Small</option>
                     <option selected value="large">Large</option>
                 </select>
             }
-            <span asp-validation-for="testingRequest.Venue" class="text-danger"></span>
+            <span asp-validation-for="ViewsEditRequest.Venue" class="text-danger"></span>
         </div>
             <div class="form-group">
                 <label asp-for="Viewing.Time" class="control-label"></label>

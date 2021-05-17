@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using movie_reservation.Auth;
 using movie_reservation.Models;
+using movie_reservation.Validation;
+
 
 namespace movie_reservation.Areas.Viewings.Pages {
     public class ReserveModel : PageModel {
@@ -49,7 +51,16 @@ namespace movie_reservation.Areas.Viewings.Pages {
                 var viewing = col.FindOne(x => x.Id == viewingId);
                 var takenSeats = seats.Concat(viewing.SeatsTaken).ToList();
                 viewing.SeatsTaken = takenSeats;
+                
                 col.Update(viewing);
+
+                Reservcol.Insert(new Models.Reservation {
+                    Name = _auth.User.Email,
+                    Seats = takenSeats,
+                    Time = viewing.Time,
+                    Price = viewing.Movie.Price,
+                    UserId = _auth.User.Id
+                });
                 
             }
 

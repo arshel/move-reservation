@@ -33,7 +33,7 @@ using movie_reservation.Models;
             public Movie Movie  { get; set; }
             
             [BindProperty]
-            public testRequest testingRequest { get; set; }
+            public ViewEditRequest ViewsEditRequest { get; set; }
 
             public IActionResult OnGet(int id) {
 
@@ -60,14 +60,14 @@ using movie_reservation.Models;
                    
                     var viewing = viewingCol.FindById(id);
 
-                    Movie = movieCol.FindById(testingRequest.MovieId);
+                    Movie = movieCol.FindById(ViewsEditRequest.MovieId);
                    
                     if (Movie == null) {
                         return NotFound();
                     }
 
                     viewing.MovieId = Movie.Id;
-                    viewing.Venue = testingRequest.Venue  == "small" ? Models.Venue.Small : Models.Venue.Large;
+                    viewing.Venue = ViewsEditRequest.Venue  == "small" ? Models.Venue.Small : Models.Venue.Large;
                     viewing.SeatsTaken = new List<string>();
                     viewing.Time = Viewing.Time;
                     
@@ -79,21 +79,21 @@ using movie_reservation.Models;
 
             }
 
-        public class testRequest {
+        public class ViewEditRequest {
             [Required]
             public int Id { get; set; }
 
             [Required]
             public int MovieId { get; set; }
 
-          //  [Required]
+           [Required]
             [VenueValid]
             public string Venue { get; set; }
 
-           // [Required]
+            [Required]
             public string Date { get; set; }
 
-           // [Required]
+            [Required]
             public string Time { get; set; }
         }
     }

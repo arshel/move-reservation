@@ -90,6 +90,7 @@
                                 @if (auth) {
                                     <a class="dropdown-item" href="/users/edit?id=@auth.User.Id">Profiel</a>
                                     <a class="dropdown-item" href="/logout">Log uit</a>
+                                    <a class="dropdown-item" href="/MyReservation??id=@auth.User.Id">Mijn Reservatie</a>
                                 }
                                 @if (!auth) {
                                     <a class="dropdown-item" href="/login">Login</a>
