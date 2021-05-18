@@ -59,7 +59,8 @@ namespace movie_reservation.Areas.Viewings.Pages {
                     Seats = takenSeats,
                     Time = viewing.Time,
                     Price = viewing.Movie.Price,
-                    UserId = _auth.User.Id
+                    UserId = _auth.User.Id,
+                    ReservationTime = DateTime.Now.Date,
                 });
                 
             }

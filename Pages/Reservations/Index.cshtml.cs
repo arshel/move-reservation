@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using movie_reservation.Auth;
+using System.Web;
+
 
 namespace movie_reservation.Pages
 {
@@ -26,15 +28,19 @@ namespace movie_reservation.Pages
          public List<Models.Reservation>  Reservation {get; set;}
 
 
-        public void OnGet() {
-            
-        using(var db = new LiteDatabase(@"movieReservation.db")) {
-                var col = db.GetCollection<Models.Reservation>("reservations");
-                Reservation = col.Query().ToList();        
-            }
+        public IActionResult OnGet() {
+
+        if (!_auth) {
+            return Unauthorized();
         }
-
-
+            
+         using(var db = new LiteDatabase(@"movieReservation.db")) {
+                var col = db.GetCollection<Models.Reservation>("reservations");
+                Reservation = col.Query().ToList(); 
+            }
+            
+            return Page();
+        }
 
         public IActionResult OnPostDelete(int id){
 

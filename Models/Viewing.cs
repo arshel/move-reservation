@@ -31,7 +31,7 @@ namespace movie_reservation.Models
                     try {
                         using(var db = new LiteDatabase(@"movieReservation.db")) {
                             var col = db.GetCollection<Movie>("movies");
-                            this.cachedMovie = col.FindOne(x => x.Id == this.Id);
+                            this.cachedMovie = col.FindOne(x => x.Id == MovieId);
                         }
                     } catch(IOException) {
                         Console.WriteLine("cant get movie");

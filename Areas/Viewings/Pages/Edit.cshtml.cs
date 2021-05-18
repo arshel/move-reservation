@@ -86,7 +86,7 @@ using movie_reservation.Models;
             [Required]
             public int MovieId { get; set; }
 
-           [Required]
+            [Required]
             [VenueValid]
             public string Venue { get; set; }
 
