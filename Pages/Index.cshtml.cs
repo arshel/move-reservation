@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using movie_reservation.Models;
 
 namespace movie_reservation.Pages
 {
@@ -19,6 +20,13 @@ namespace movie_reservation.Pages
             _logger = logger;
         }
 
-        public void OnGet() {}
+        public Viewing[] UpcomingViewings;
+
+        public void OnGet() {
+          using(var db = new LiteDatabase(@"movieReservation.db")) {
+            var col = db.GetCollection<Viewing>("viewings");
+            UpcomingViewings = col.Find(Query.All("Time", Query.Ascending), limit: 4).ToArray();
+          }
+        }
   }
 }

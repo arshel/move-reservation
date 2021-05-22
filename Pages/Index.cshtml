@@ -4,16 +4,20 @@
     ViewData["Title"] = "Home page";
 }
 
-@* TODO: Use information from latest movie *@
-<div class="cover" style="background-image: linear-gradient(to bottom, #343a40, rgba(0,0,0,0), #fff), url('/images/the_martian.jpg');">
-    <div class="container pt-4">
-        <h2 class="cover__title text-white display-3 font-weight-bold">THE MARTIAN</h1>
-        <a class="btn btn-primary d-inline-flex align-items-center" asp-area="" asp-page="/Movies/Index">
-            Reserveer nu
-            <span class="material-icons ml-2">label_important</span>
-        </a>
+@if(Model.UpcomingViewings.Length > 0)
+{
+    <div class="cover" style="background-image: linear-gradient(to bottom, #343a40, rgba(0,0,0,0), #fff), url('/images/@Model.UpcomingViewings[0].Movie.Image');">
+        <div class="container pt-4">
+            <h1 class="cover__title text-white display-3 font-weight-bold">@Model.UpcomingViewings[0].Movie.Title</h1>
+            <p class="text-white">@Model.UpcomingViewings[0].Movie.Title</p>
+            <p class="text-white">Start @Model.UpcomingViewings[0].Time</p>
+            <a class="btn btn-primary d-inline-flex align-items-center" href="/Viewings/Reserve?id=@Model.UpcomingViewings[0].Id">
+                Reserve a spot
+                <span class="material-icons ml-2">label_important</span>
+            </a>
+        </div>
     </div>
-</div>
+}
 <div class="mt-4 container-fluid">
     <div class="row px-4">
         <div class="col-md-5">
@@ -28,51 +32,24 @@
         </div>
     </div>
 </div>
-@* TODO: Dynamically get latest movies *@
 <div class="mt-4">
     <div class="container-fluid">
-        <h2 class="h1 px-sm-4">Laatste Films</h2>
+        <h2 class="h1 px-sm-4">Upcoming Movies</h2>
         <div class="row text-white px-4">
-            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
-                <div class="card bg-dark p-0">
-                    <img class="card-img-top" src="/images/the_martian.jpg" alt="The martian cover" class="img-fluid">
-                    <div class="card-body">
-                        <h3 class="card-title">The Martian</h3>
-                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, asperiores.</p>
-                        <a href="#" class="btn btn-primary">Reserveer Film</a>
+            @foreach (var viewing in Model.UpcomingViewings)
+            {
+                <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                    <div class="card bg-dark p-0">
+                        <img class="card-img-top" src="/images/@viewing.Movie.Image" alt="The martian cover" class="img-fluid">
+                        <div class="card-body">
+                            <h3 class="card-title">@viewing.Movie.Title</h3>
+                            <p class="card-text">@viewing.Movie.Description</p>
+                            <p>Start: @viewing.Time</p>
+                            <a href="/Viewings/Reserve?id=@viewing.Id" class="btn btn-primary">Reserve a spot</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
-                <div class="card bg-dark p-0">
-                    <img class="card-img-top" src="/images/the_martian.jpg" alt="The martian cover" class="img-fluid">
-                    <div class="card-body">
-                        <h3 class="card-title">The Martian</h3>
-                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, asperiores.</p>
-                        <a href="#" class="btn btn-primary">Reserveer Film</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
-                <div class="card bg-dark p-0">
-                    <img class="card-img-top" src="/images/the_martian.jpg" alt="The martian cover" class="img-fluid">
-                    <div class="card-body">
-                        <h3 class="card-title">The Martian</h3>
-                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, asperiores.</p>
-                        <a href="#" class="btn btn-primary">Reserveer Film</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
-                <div class="card bg-dark p-0">
-                    <img class="card-img-top" src="/images/the_martian.jpg" alt="The martian cover" class="img-fluid">
-                    <div class="card-body">
-                        <h3 class="card-title">The Martian</h3>
-                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, asperiores.</p>
-                        <a href="#" class="btn btn-primary">Reserveer Film</a>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
         <div class="ml-auto px-4 text-right mt-2">
             <a asp-page="movies/Index" class="btn btn-link">Zie alle films</a>
