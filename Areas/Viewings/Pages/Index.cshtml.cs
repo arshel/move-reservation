@@ -28,5 +28,18 @@ namespace movie_reservation.Areas.Viewings.Pages {
                 Viewings = col.Query().ToList();
             }
         }
+
+         public IActionResult OnPostDelete(int id){
+
+            using(var db = new LiteDatabase(@"movieReservation.db")) {
+
+              var col = db.GetCollection<Models.Viewing>("viewings");
+              // then delete the movie 
+               col.Delete(id);
+      }
+
+       
+        return RedirectToPage("/Index");
+      }
     }
 }

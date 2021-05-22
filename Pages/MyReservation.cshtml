@@ -1,0 +1,24 @@
+@page
+@model MyReservationModel
+
+<div class="container-fluid">
+    <h1 class="text-center">Reservatie</h1>
+    @if(Model.Reservation != null){
+            <div class="row text-white px-4">
+                <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                    <div class="card bg-dark p-0">
+                        <div class="card-body">
+                            <h4>name: @Model.Reservation.Name </h4> 
+                            <p> Movie time: @Model.Reservation.Time </p> 
+                            <p>price:  @Model.Reservation.Price </p> 
+                            
+                            @foreach(var seat in Model.Reservation.Seats){
+                                <h1> @seat </h1> 
+                            }
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+    }
+</div>

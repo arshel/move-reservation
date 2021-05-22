@@ -3,6 +3,7 @@
 
 <div class="container mt-4">
     <h2>Reserve Viewing for @Model.Viewing.Movie.Title</h2>
+    
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" class="d-none" name="viewingId" value=@Model.Viewing.Id>

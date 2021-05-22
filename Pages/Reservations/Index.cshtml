@@ -1,0 +1,49 @@
+@page
+@inject Auth.AuthChecker auth
+@model ReservationIndexModel
+
+
+<div class="container-fluid">
+<h1 class="text-center">Reservering</h1>
+@{
+    var price = 0.0m;
+    // turn price into a decimal
+    var day = DateTime.Now.Date;
+    @foreach(var viewing in Model.Reservation) {
+        // check if it is the current day
+        if(viewing.ReservationTime == day){
+            // make calculations to get the correct price 
+            price += viewing.Price;
+            price = price * (decimal)viewing.Seats.Count();
+        }
+   }  
+}
+
+<h3 class="text-center m-b-30">Inkomsten vandaag:€ @price -, </h3>
+    <form method="post">
+        <div class="row text-white px-4">
+        @foreach(var viewing in Model.Reservation) {
+            <div class="col-sm-6 col-lg-3 px-0 px-sm-2 mb-3 mb-lg-0">
+                <div class="card bg-dark p-0">
+                    <div class="card-body">
+                        <h4>name: @viewing.Name </h4> 
+                        <p> Movie time: @viewing.Time </p> 
+                        <p>price:  @viewing.Price </p> 
+                        
+                        @foreach(var seat in viewing.Seats){
+                            <h1> @seat </h1> 
+                        }
+                       @if (auth.User != null) {
+                            @if (auth.User.Role != Models.UserRole.Customer) {
+                                <button class="btn btn-danger col-12" type="submit" asp-page-handler="delete"
+                                    asp-route-id="@viewing.Id">delete reservation
+                                </button>
+                            }
+                    }
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </form>
+</div>
