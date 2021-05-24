@@ -3,6 +3,8 @@ using LiteDB;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 using movie_reservation.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -26,9 +28,7 @@ namespace movie_reservation.Pages
           private readonly AuthChecker _auth;
           public string Success;
 
-
           public string Error;
-
         public void OnGet(){ 
             using(var db = new LiteDatabase(@"movieReservation.db")) {
 
@@ -43,8 +43,16 @@ namespace movie_reservation.Pages
             using(var db = new LiteDatabase(@"movieReservation.db")) {
 
               var movieCollection = db.GetCollection<Models.Movie>("Movies");
+              var movie  =  movieCollection.FindById(id);
+
+              var filePath = Path.Combine("./wwwroot/images/", movie.Image);
+                
+              // delete the image if it exisits
+              if(filePath != null){
+                System.IO.File.Delete(filePath);
+              } 
               // then delete the movie 
-               movieCollection.Delete(id);
+              movieCollection.Delete(id);
       }
 
         Success = "Film is succesvol verwijderd!";

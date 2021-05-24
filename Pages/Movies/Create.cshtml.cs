@@ -1,4 +1,7 @@
+using System;
+using System.IO;
 using LiteDB;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -18,9 +21,17 @@ namespace movie_reservation.Pages {
         }
 
         [BindProperty]
+        public IFormFile FileUpload { get; set; }
+
+        [BindProperty]
         public Movie Movie { get; set; }
 
         public IActionResult OnPost() {
+            var filePath = Path.Combine("./wwwroot/images/", FileUpload.FileName);
+            using(var stream = System.IO.File.Create(filePath)) {
+                FileUpload.CopyTo(stream);
+            }
+
             using(var db = new LiteDatabase(@"movieReservation.db")) {
                     var movieCollection = db.GetCollection<Models.Movie>("Movies");
 
@@ -28,7 +39,8 @@ namespace movie_reservation.Pages {
                         Title = Movie.Title,
                         Genre = Movie.Genre,
                         Price = Movie.Price,
-                        Description = Movie.Description
+                        Description = Movie.Description,
+                        Image = FileUpload.FileName,
                     });
             }
             return RedirectToPage("/Movies/Index");
