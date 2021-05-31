@@ -19,8 +19,12 @@
                             <p class="card-text">@viewing.Time</p>
                             <p class="card-text">Venue: @viewing.Venue</p>
                             <hr>
-                            <a asp-page="./Reserve" asp-route-id="@viewing.Id" class="btn btn-primary col-12 mb-1">Reserveer</a>
-                            @if(auth.User.Role == Models.UserRole.Owner || auth.User.Role == Models.UserRole.Clerk) {
+                            @if(auth) {
+                                <a asp-page="./Reserve" asp-route-id="@viewing.Id" class="btn btn-primary col-12 mb-1">Reserveer</a>
+                            } else {
+                                <p>Login to reserve</p>
+                            }
+                            @if(auth && (auth.User.Role == Models.UserRole.Owner || auth.User.Role == Models.UserRole.Clerk)) {
                                 <a asp-page="./Edit" asp-route-id="@viewing.Id"class="btn btn-info col-12 mb-1">Edit</a>
 
                                 <button class="btn btn-danger col-12 mb-1" type="submit" asp-page-handler="delete"
