@@ -18,6 +18,7 @@ namespace movie_reservation.Models
         public string Image { get; set; }
 
         [Required]
+        [Range(1, 100, ErrorMessage = "only positive numbers")]
         public decimal Price { get; set; }
     }
 }
