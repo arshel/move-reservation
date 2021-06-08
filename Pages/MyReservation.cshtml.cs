@@ -27,16 +27,13 @@ namespace movie_reservation.Pages
         
         public Reservation Reservation {get; set;}
 
-        public IActionResult OnGet(int id) {
+        public IActionResult OnGet( int Id) {
            
         using(var db = new LiteDatabase(@"movieReservation.db")) {
             var col = db.GetCollection<Models.Reservation>("reservations");
-            
-            Reservation = col.FindOne(x => x.Id == _auth.User.Id);
-            
+            Reservation = col.FindOne(x => x.UserId == Id);
             return Page();
         }
-
     }
   }
 }
